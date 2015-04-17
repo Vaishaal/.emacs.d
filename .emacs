@@ -6,6 +6,8 @@
 (add-to-list 'load-path "~/.emacs.d/evil-leader")
 (add-to-list 'load-path "~/.emacs.d/scala-mode2")
 (add-to-list 'load-path "~/.emacs.d/undo-tree")
+(add-to-list 'load-path "~/.emacs.d/projectile")
+(add-to-list 'load-path "~/.emacs.d/dash.el")
 
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
@@ -17,9 +19,13 @@
 (require 'scala-mode2)
 (require 'undo-tree)
 (require 'ido)
+(require 'dash)
+(require 'projectile)
+
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+(projectile-global-mode)
 ;; (require 'magit)
 
 
@@ -57,16 +63,15 @@
 
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 
-
-
-
-
 (define-key evil-motion-state-map ";" 'evil-ex)
-(define-key key-translation-map (kbd "C-c C-e") 'load_conf)
-(define-key key-translation-map (kbd "C-p") (kbd "C-x C-f"))
+(define-key key-translation-map (kbd "C-x C-a") 'load_conf)
+(define-key key-translation-map (kbd "C-p") 'projectile-find-file)
+
+
 
 (load-theme 'solarized-dark t)
 (global-linum-mode 1)
 (setq linum-format "%d ")
 (menu-bar-mode -1)
 (setq magit-last-seen-setup-instructions "1.4.0")
+
