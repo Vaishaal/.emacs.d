@@ -45,7 +45,7 @@
 (setq evil-want-C-u-scroll t)
 (setq evil-complete-all-buffers nil)
 
-(evil-set-initial-state 'magit-log-edit-mode 'emacs)
+
 (evil-set-initial-state 'nav-mode 'emacs)
 (evil-set-initial-state 'grep-mode 'emacs)
 (evil-set-initial-state 'ibuffer-mode 'normal)
@@ -64,9 +64,9 @@
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 
 (define-key evil-motion-state-map ";" 'evil-ex)
-(define-key key-translation-map (kbd "C-x C-a") 'load_conf)
+(define-key key-translation-map (kbd "C-c C-c") 'load_conf)
 (define-key key-translation-map (kbd "C-p") 'projectile-find-file)
-
+(setq mac-command-modifier 'meta)
 
 
 (load-theme 'solarized-dark t)
