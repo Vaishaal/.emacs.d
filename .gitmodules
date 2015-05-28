@@ -25,3 +25,9 @@
 [submodule "evil-leader"]
 	path = evil-leader
 	url = git@github.com:cofi/evil-leader.git
+[submodule "projectile"]
+	path = projectile
+	url = https://github.com/bbatsov/projectile.git
+[submodule "auto-complete"]
+	path = auto-complete
+	url = https://github.com/auto-complete/auto-complete.git
