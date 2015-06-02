@@ -8,6 +8,7 @@
 (add-to-list 'load-path "~/.emacs.d/undo-tree")
 (add-to-list 'load-path "~/.emacs.d/projectile")
 (add-to-list 'load-path "~/.emacs.d/dash.el")
+(add-to-list 'load-path "~/.emacs.d/whitespace")
 
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
@@ -21,6 +22,7 @@
 (require 'ido)
 (require 'dash)
 (require 'projectile)
+(require 'whitespace)
 
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -40,7 +42,7 @@
 (global-evil-leader-mode)
 (evil-mode 1)
 
-(setq evil-shift-width 2)
+(setq evil-shift-width 4)
 (setq evil-want-C-i-jump t)
 (setq evil-want-C-u-scroll t)
 (setq evil-complete-all-buffers nil)
@@ -66,6 +68,7 @@
 (define-key evil-motion-state-map ";" 'evil-ex)
 (define-key key-translation-map (kbd "C-c C-c") 'load_conf)
 (define-key key-translation-map (kbd "C-p") 'projectile-find-file)
+(define-key key-translation-map (kbd "C-]") 'projectile-find-file)
 (setq mac-command-modifier 'meta)
 
 
@@ -74,4 +77,22 @@
 (setq linum-format "%d ")
 (menu-bar-mode -1)
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+(setq auto-save-default nil)
+
+(setq-default c-basic-offset 4
+	      tab-width 4
+	      indent-tabs-mode t)
+
+(setq c-default-style "linux"
+      c-basic-offset 4)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(define-key global-map (kbd "C-x w") 'whitespace-mode)
+
+
+(defun auto-complete-mode-maybe ()
+  "No maybe for you. Only AC!"
+  (unless (minibufferp (current-buffer))
+	    (auto-complete-mode 1)))
+
 
