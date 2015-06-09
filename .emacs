@@ -64,6 +64,7 @@
 (evil-add-hjkl-bindings occur-mode 'emacs)
 
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-normal-state-map (kbd "C-s") 'git-gutter:stage-hunk)
 
 (define-key evil-motion-state-map ";" 'evil-ex)
 (define-key key-translation-map (kbd "C-c C-c") 'load_conf)
@@ -89,10 +90,7 @@
 (define-key global-map (kbd "C-x w") 'whitespace-mode)
 (define-key global-map (kbd "C-x RET") (kbd "M-j"))
 
-(evil-ex-define-cmd "gdiff" 'vc-diff)
-(evil-ex-define-cmd "Gdiff" 'vc-diff)
-(evil-ex-define-cmd "Gread" 'vc-revert)
-(evil-ex-define-cmd "gread" 'vc-revert)
+(evil-ex-define-cmd "gdiff" 'vc-revision-other-window)
 
 (defun evil-ex-binding (command &optional noerror)
   "Returns the final binding of COMMAND."
@@ -110,3 +108,16 @@
         (unless noerror
           (command))))))
 
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+	'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+	'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(custom-set-variables
+ '(git-gutter:update-interval 2))
