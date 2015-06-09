@@ -10,7 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/dash.el")
 (add-to-list 'load-path "~/.emacs.d/whitespace")
 
-
+(add-to-list 'load-path "~/.emacs.d/site-lisp/magit")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
 
 
@@ -28,7 +28,7 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 (projectile-global-mode)
-;; (require 'magit)
+(require 'magit)
 
 
 (defun load_conf (prompt)
@@ -68,7 +68,6 @@
 (define-key evil-motion-state-map ";" 'evil-ex)
 (define-key key-translation-map (kbd "C-c C-c") 'load_conf)
 (define-key key-translation-map (kbd "C-p") 'projectile-find-file)
-(define-key key-translation-map (kbd "C-]") 'projectile-find-file)
 (setq mac-command-modifier 'meta)
 
 
@@ -88,11 +87,26 @@
       c-basic-offset 4)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (define-key global-map (kbd "C-x w") 'whitespace-mode)
+(define-key global-map (kbd "C-x RET") (kbd "M-j"))
 
+(evil-ex-define-cmd "gdiff" 'vc-diff)
+(evil-ex-define-cmd "Gdiff" 'vc-diff)
+(evil-ex-define-cmd "Gread" 'vc-revert)
+(evil-ex-define-cmd "gread" 'vc-revert)
 
-(defun auto-complete-mode-maybe ()
-  "No maybe for you. Only AC!"
-  (unless (minibufferp (current-buffer))
-	    (auto-complete-mode 1)))
-
+(defun evil-ex-binding (command &optional noerror)
+  "Returns the final binding of COMMAND."
+  (let ((binding command))
+    (when binding
+      (string-match "^\\(.+?\\)\\!?$" binding)
+      (setq binding (match-string 1 binding))
+      (while (progn
+               (setq binding (cdr (assoc binding evil-ex-commands)))
+               (stringp binding)))
+      (unless binding
+        (setq binding (intern command)))
+      (if (commandp binding)
+          binding
+        (unless noerror
+          (command))))))
 
