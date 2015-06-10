@@ -91,6 +91,7 @@
 (define-key global-map (kbd "C-x RET") (kbd "M-j"))
 
 (evil-ex-define-cmd "gdiff" 'vc-revision-other-window)
+(evil-ex-define-cmd "gdiff", 'magit-commit)
 
 (defun evil-ex-binding (command &optional noerror)
   "Returns the final binding of COMMAND."
@@ -120,4 +121,8 @@
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 (custom-set-variables
- '(git-gutter:update-interval 2))
+ '(git-gutter:update-interval 1))
+
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+
